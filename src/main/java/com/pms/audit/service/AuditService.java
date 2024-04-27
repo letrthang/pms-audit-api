@@ -32,7 +32,7 @@ public class AuditService {
         if(ObjectUtils.isEmpty(pageSize)) {
             pageSize = DEFAULT_PAGE_SIZE;
         }
-        PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
+        PageRequest pageRequest = PageRequest.of(pageNo-1, pageSize);
         Page<AuditEntity> allAudits = auditRepository.findAll(pageRequest);
         return allAudits.map(entity ->
                 getInstance().toDto(AuditDTO.class, entity));

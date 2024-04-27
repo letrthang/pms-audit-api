@@ -1,6 +1,5 @@
 package com.pms.audit.utils;
 
-import com.app.hackathon.lib.utils.LocalDateTimeTypeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.experimental.UtilityClass;
