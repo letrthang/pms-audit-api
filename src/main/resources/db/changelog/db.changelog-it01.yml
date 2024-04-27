@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: it01_01
+      author: "Ratnavel Srishiyamalan"
+      changes:
+        - sql:
+            sql: "
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `email` varchar(100) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`email`)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS `portfolio` (
+  `customer_id` varchar(100) DEFAULT NULL,
+  `customer_name` varchar(100) DEFAULT NULL,
+  `portfolio_value` decimal(10,0) DEFAULT NULL,
+  `current_performace` double DEFAULT NULL,
+  `invest_strategy` varchar(100) DEFAULT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `portfolio_number` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `portfolio_unique` (`portfolio_number`)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS `instrument` (
+  `instrument_id` varchar(100) NOT NULL,
+  `instrument_value` decimal(10,0) DEFAULT NULL,
+  `instrument_name` varchar(100) DEFAULT NULL,
+  `instrument_type` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`instrument_id`)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS `audit` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `transaction_ref` varchar(100) DEFAULT NULL,
+  `instrument_id` varchar(100) DEFAULT NULL,
+  `instrument_name` varchar(100) DEFAULT NULL,
+  `trade_type` varchar(100) DEFAULT NULL,
+  `audit_date` timestamp NULL DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS `position` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `transaction_ref` varchar(100) DEFAULT NULL,
+  `instrument_Id` varchar(100) DEFAULT NULL,
+  `trade_type` varchar(100) DEFAULT NULL,
+  `unit` int DEFAULT NULL,
+  `trade_value` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `position_instrument_FK` (`instrument_Id`),
+  CONSTRAINT `position_instrument_FK` FOREIGN KEY (`instrument_Id`) REFERENCES `instrument` (`instrument_id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+            "
